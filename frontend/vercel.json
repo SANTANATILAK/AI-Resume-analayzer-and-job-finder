@@ -1,1 +1,1 @@
-{ "rewrites":[{"source":"/(.*)","destination":"/index.html"}] }
+{ "rewrites":[{"source":"/api/:path*","destination":"https://ai-resume-analayzer-and-job-finder.onrender.com/api/:path*"},{"source":"/(.*)","destination":"/index.html"}] }
