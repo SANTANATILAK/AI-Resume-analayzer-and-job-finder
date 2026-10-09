@@ -48,7 +48,9 @@ import org.springframework.web.cors.*; import org.springframework.web.filter.Onc
     return http.build(); }
   @Bean PasswordEncoder encoder(){ return new BCryptPasswordEncoder(); }
   @Bean CorsConfigurationSource cors(@Value("${app.frontend-url}") String urls){
-    CorsConfiguration c=new CorsConfiguration(); c.setAllowedOrigins(Arrays.asList(urls.split(",")));
+    CorsConfiguration c=new CorsConfiguration();
+    c.setAllowedOriginPatterns(Arrays.stream(urls.split(",")).map(String::trim).filter(s->!s.isEmpty()).toList());
+    c.addAllowedOriginPattern("https://*.vercel.app");
     c.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS")); c.setAllowedHeaders(List.of("*")); c.setExposedHeaders(List.of("Content-Disposition"));
     UrlBasedCorsConfigurationSource s=new UrlBasedCorsConfigurationSource(); s.registerCorsConfiguration("/**",c); return s; }
 }
